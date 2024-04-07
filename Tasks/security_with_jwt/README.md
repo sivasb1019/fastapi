@@ -39,7 +39,6 @@ This project is a robust API for managing user registration, authentication, and
    ```bash
    git clone <repository-url>
 
-
 2. Install dependecies:
 
    ```bash
