@@ -1,4 +1,4 @@
-# User Registration Management API with FastAPI
+# User Registration and Authentication with FastAPI
 
 This project is a robust API for managing user registration, authentication, and profile updates securely. Built with FastAPI, PostgreSQL, and JWT (JSON Web Tokens), it offers a comprehensive solution for modern web applications requiring user management features.
 
