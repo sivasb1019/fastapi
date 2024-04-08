@@ -12,17 +12,6 @@ from security_with_jwt.utils import verify_password, bearer_scheme
 from security_with_jwt.utils import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
 
-
-
-def authenticate_user(username, password, db):
-    user = get_user(username, db)
-    if not user:
-        return False
-    if not verify_password(password, user.hashed_password):
-        return False
-    return user
-    
-
 def generate_access_token(username, password, db):
     user = authenticate_user(username, password, db)
     if not user:
@@ -38,7 +27,16 @@ def generate_access_token(username, password, db):
         }
     access_token = create_access_token(data=payload)
     return {"access_token": access_token, "token_type": "bearer"}
+    
 
+def authenticate_user(username, password, db):
+    user = get_user(username, db)
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user
+    
 
 def create_access_token(data: dict):
     to_encode = data.copy()
@@ -49,20 +47,6 @@ def create_access_token(data: dict):
     to_encode.update({"exp": expire_minutes})
     created_jwt_token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return created_jwt_token
-
-
-def verify_access_token(token: str, credential_exceptions: HTTPException):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id = payload.get("user_id")
-        if not user_id:
-            raise credential_exceptions
-        token_data = TokenData(user_id=user_id,
-                               username=payload.get("username"),
-                               role=payload.get("role"))
-    except JWTError:
-        raise credential_exceptions
-    return token_data
     
 
 def get_current_user(token: HTTPAuthorizationCredentials = Security(bearer_scheme), db: Session = Depends(get_session)):
@@ -77,3 +61,16 @@ def get_current_user(token: HTTPAuthorizationCredentials = Security(bearer_schem
         raise credential_exceptions
     return token_data
 
+
+def verify_access_token(token: str, credential_exceptions: HTTPException):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("user_id")
+        if not user_id:
+            raise credential_exceptions
+        token_data = TokenData(user_id=user_id,
+                               username=payload.get("username"),
+                               role=payload.get("role"))
+    except JWTError:
+        raise credential_exceptions
+    return token_data
