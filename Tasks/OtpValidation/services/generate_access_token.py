@@ -13,20 +13,17 @@ load_dotenv(override=True)
 OTP_TIME_LIMIT = os.getenv("OTP_TIME_LIMIT")
 
 def generate_access_token(credentials, db):
-    otp, otp_time = user.otp, user.otp_time
-    user.otp = ""
-    user.otp_time = 0
     credentials_exception = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                                           detail="Invalid Credentials",
                                           headers={"WWW-Authenticate": "bearer"})
     user = get_user(credentials.email, db)
     if not user:
         raise credentials_exception
-    otp_validate_time = time() - otp_time
+    otp_validate_time = time() - user.otp_time
     if int(OTP_TIME_LIMIT) < otp_validate_time:
         raise HTTPException(status_code=status.HTTP_408_REQUEST_TIMEOUT,
                             detail="OTP time limit reached. Request a new OTP.")
-    if otp != credentials.otp:
+    if user.otp != credentials.otp:
             raise credentials_exception
     jwt_token =  create_token(data={"user_id": user.user_id, "email": user.email})
     return Token(access_token=jwt_token, token_type="bearer")
