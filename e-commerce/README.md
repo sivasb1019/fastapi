@@ -91,5 +91,5 @@ This project is an e-commerce backend application that provides functionalities 
 6. Open a pull request.
 
 ## Additional Information
-You can create the e-commerce UI (frontend setup) using this backend because it provides a medium-level setup for an e-commerce application.
+ - You can create the e-commerce UI (frontend setup) using this backend because it provides a medium-level setup for an e-commerce application.
 
