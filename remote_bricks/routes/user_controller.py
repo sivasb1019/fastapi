@@ -42,7 +42,7 @@ async def link_id(linking_id: LinkID):
     return {"message": f"ID linked successfully with user ID '{user_exists['_id']}'"}
 
 # Endpoint to fetch user data including linked IDs
-@router.post("/join_user_data/{user_id}", response_model=JoinResponse)
+@router.get("/join_user_data/{user_id}", response_model=JoinResponse)
 async def join_user_data(user_id: str):
     user_exists = users_collection.find_one({"_id": user_id})
     if not user_exists:
@@ -54,7 +54,7 @@ async def join_user_data(user_id: str):
     return user_exists
 
 # Endpoint to delete a user and associated data
-@router.post("/delete_user/{user_id}")
+@router.delete("/delete_user/{user_id}")
 async def delete_user(user_id: str):
     result = users_collection.delete_one({"_id": user_id})
     if not result.deleted_count:
