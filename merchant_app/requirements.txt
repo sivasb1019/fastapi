@@ -1,0 +1,11 @@
+fastapi
+alembic
+pandas
+pydantic
+python-dotenv
+SQLAlchemy
+uvicorn
+xlsxwriter
+pymysql
+cryptography
+redis
