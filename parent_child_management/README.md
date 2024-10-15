@@ -49,7 +49,7 @@ The application provides the following API endpoints:
 If you have any questions or need assistance, please contact [sivabalanv0810@gmail.com](mailto:sivabalanv0810@gmail.com).
 
 ## Acknowledgments
-Special thanks to [CloudyApps]() for giving this stunning project.
+Special thanks to [CloudyApps](https://www.cloudifyapps.com/) for giving this stunning project.
 
 ## Contributors
 The following people have contributed to this project:
