@@ -66,12 +66,6 @@
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### 1.2 Process Separation Benefits
-- **Fault Isolation**: HelperService crashes don't affect main VembuBDR process
-- **Resource Management**: Independent memory and CPU allocation
-- **Scalability**: Can run on different CPU cores
-- **Maintainability**: Clear separation of concerns
-
 ## 2. Component Design Details
 
 ### 2.1 Design Patterns Used
